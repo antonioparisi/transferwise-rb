@@ -10,15 +10,27 @@ module TransferWise
       "#{collection_url}/#{resource_id}"
     end
 
-    def self.collection_url
+    def self.collection_url(resource_id = nil)
       if self == APIResource
         raise NotImplementedError.new('APIResource is an abstract class. You should perform actions on its subclasses (Account, Transfer, etc.)')
       end
-      "/v1/#{CGI.escape(class_name.downcase)}s"
+
+      case class_name.downcase
+      when 'user'
+        '/v1/user/signup/registration_code'
+      when 'fund'
+        "/v1/transfers/#{resource_id}/payments"
+      else
+        "/v1/#{CGI.escape(class_name.downcase)}s"
+      end
     end
 
     def self.create(params={}, opts={})
-      response = TransferWise::Request.request(:post, collection_url, params, opts)
+      resource_id = params[:id]
+
+      url = resource_id.nil? ? collection_url : collection_url(resource_id)
+
+      response = TransferWise::Request.request(:post, url, params, opts)
       convert_to_transfer_wise_object(response)
     end
 
