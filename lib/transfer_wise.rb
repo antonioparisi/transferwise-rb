@@ -20,6 +20,7 @@ require 'transfer_wise/account'
 require 'transfer_wise/transfer'
 require 'transfer_wise/util'
 require 'transfer_wise/request'
+require 'transfer_wise/fund'
 
 # Errors
 require 'transfer_wise/transfer_wise_error'
