@@ -26,7 +26,7 @@ module TransferWise
     end
 
     def self.create(params={}, opts={})
-      resource_id = params[:id]
+      resource_id = params.delete(:id)
 
       url = resource_id.nil? ? collection_url : collection_url(resource_id)
 
