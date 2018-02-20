@@ -32,7 +32,7 @@ module TransferWise
     attr_accessor :access_token
 
     def api_base
-      @api_base ||= mode == 'live' ? 'https://api.transferwise.com' : 'https://sandbox.transferwise.tech'
+      @api_base ||= mode == 'live' ? 'https://api.transferwise.com' : 'https://api.sandbox.transferwise.tech'
     end
   end
 end
